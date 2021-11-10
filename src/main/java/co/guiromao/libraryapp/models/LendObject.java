@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -19,7 +17,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class LendObject {
 
-    private Member member;
+    private String memberId;
+    private String memberName;
     private Date initialDate;
     private Date finalDate;
 

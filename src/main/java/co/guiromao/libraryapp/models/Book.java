@@ -34,16 +34,11 @@ public class Book {
     private boolean isLent;
 
     //Current member that has this book
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id")
+    @Column(name = "current_member")
     private Member currentMember;
 
     //Will save to whom and when this book was lent
     @ElementCollection(targetClass = LendObject.class)
     private List<LendObject> lentList;
-
-    public void switchStatus() {
-        isLent = !isLent;
-    }
 
 }

@@ -27,7 +27,7 @@ public class Member implements Serializable {
     @Column(name = "active")
     private boolean isActive;
 
-    @OneToMany(mappedBy = "currentMember", fetch = FetchType.EAGER, targetEntity = Book.class)
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Book> booksGot = new HashSet<>();
 
     @ManyToMany(mappedBy = "members")

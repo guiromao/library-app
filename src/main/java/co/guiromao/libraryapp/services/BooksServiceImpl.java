@@ -6,6 +6,7 @@ import co.guiromao.libraryapp.models.LendObject;
 import co.guiromao.libraryapp.models.Member;
 import co.guiromao.libraryapp.repositories.BooksRepository;
 import co.guiromao.libraryapp.repositories.MembersRepository;
+import co.guiromao.libraryapp.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -78,6 +79,8 @@ public class BooksServiceImpl implements BooksService {
 
         assignBookToMember(book, member);
         saveBook(book);
+        member.getBooksGot().add(book);
+        membersRepository.saveAndFlush(member);
 
         return true;
     }
@@ -104,6 +107,8 @@ public class BooksServiceImpl implements BooksService {
 
         returnBookFromMember(book, member);
         saveBook(book);
+        member.getBooksGot().remove(book);
+        membersRepository.saveAndFlush(member);
 
         return true;
     }
@@ -129,6 +134,5 @@ public class BooksServiceImpl implements BooksService {
 
         return lendObject;
     }
-
 
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.Date;
 
@@ -17,8 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class LendObject {
 
-    private String memberId;
-    private String memberName;
+    private Member member;
     private Date initialDate;
     private Date finalDate;
 

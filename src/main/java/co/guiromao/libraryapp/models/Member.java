@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,7 +14,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class Member implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +28,9 @@ public class Member {
     private boolean isActive;
 
     @OneToMany(mappedBy = "currentMember", fetch = FetchType.EAGER, targetEntity = Book.class)
-    private Set<Book> booksGot;
+    private Set<Book> booksGot = new HashSet<>();
+
+    @ManyToMany(mappedBy = "members")
+    private Set<Campaign> campaigns = new HashSet<>();
 
 }

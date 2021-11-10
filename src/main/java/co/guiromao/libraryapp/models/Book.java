@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,12 +18,10 @@ import java.util.UUID;
 public class Book {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @Column(name = "isbn", updatable = false, nullable = false)
+    @GeneratedValue(generator = "uuid4")
+    @GenericGenerator(name = "UUID", strategy = "uuid4")
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Column(name = "isbn", updatable = false, nullable = false, columnDefinition = "CHAR(36)")
     private UUID isbn;
 
     @Column(name = "book_title")
@@ -35,8 +34,8 @@ public class Book {
     private boolean isLent;
 
     //Current member that has this book
-    @ManyToOne
-    @JoinColumn(name = "member_id", foreignKey = @ForeignKey(name = "isbn"))
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "member_id")
     private Member currentMember;
 
     //Will save to whom and when this book was lent

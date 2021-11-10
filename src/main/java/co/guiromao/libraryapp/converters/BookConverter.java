@@ -24,12 +24,14 @@ public class BookConverter {
 
         List<LendObjectDto> lendDtos = new ArrayList<>();
 
-        for (LendObject obj: book.getLentList()) {
-            String initDate = generateDate(obj.getInitialDate());
-            String endDate = generateDate(obj.getFinalDate());
-            LendObjectDto lendDto = new LendObjectDto(obj.getMember(), initDate, endDate);
+        if (book.getLentList() != null) {
+            for (LendObject obj : book.getLentList()) {
+                String initDate = generateDate(obj.getInitialDate());
+                String endDate = generateDate(obj.getFinalDate());
+                LendObjectDto lendDto = new LendObjectDto(obj.getMember(), initDate, endDate);
 
-            lendDtos.add(lendDto);
+                lendDtos.add(lendDto);
+            }
         }
 
         dto.setLendObjects(lendDtos);

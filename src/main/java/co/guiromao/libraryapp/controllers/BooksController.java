@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/library/books")
+@RequestMapping("/api/v1/library")
 public class BooksController {
 
     private BooksService booksService;

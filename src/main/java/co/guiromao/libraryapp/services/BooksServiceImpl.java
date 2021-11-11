@@ -79,7 +79,7 @@ public class BooksServiceImpl implements BooksService {
 
         assignBookToMember(book, member);
         saveBook(book);
-        member.getBooksGot().add(book);
+        member.addBookToCurrent(book);
         membersRepository.saveAndFlush(member);
 
         return true;
@@ -107,7 +107,7 @@ public class BooksServiceImpl implements BooksService {
 
         returnBookFromMember(book, member);
         saveBook(book);
-        member.getBooksGot().remove(book);
+        member.removeBookFromCurrent(book);
         membersRepository.saveAndFlush(member);
 
         return true;

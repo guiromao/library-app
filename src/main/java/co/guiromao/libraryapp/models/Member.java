@@ -33,4 +33,12 @@ public class Member implements Serializable {
     @ManyToMany(mappedBy = "members")
     private Set<Campaign> campaigns = new HashSet<>();
 
+    public void addBookToCurrent(Book book) {
+        booksGot.add(book);
+    }
+
+    public void removeBookFromCurrent(Book book) {
+        booksGot.remove(book);
+    }
+
 }

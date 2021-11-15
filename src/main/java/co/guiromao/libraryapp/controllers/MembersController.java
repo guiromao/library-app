@@ -40,8 +40,8 @@ public class MembersController {
     public ResponseEntity<MemberDto> createMember(@RequestBody MemberDto memberDto) {
         Member member = MemberConverter.dtoToMember(memberDto);
 
-        Map<Boolean, Date> activePeriods = new HashMap<>();
-        activePeriods.put(true, new Date());
+        Map<Date, Boolean> activePeriods = new HashMap<>();
+        activePeriods.put(new Date(), true);
         member.setActivePeriods(activePeriods);
 
         MemberDto respDto = MemberConverter.memberToDto(membersService.saveMember(member));

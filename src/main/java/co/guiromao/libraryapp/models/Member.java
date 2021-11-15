@@ -33,7 +33,7 @@ public class Member implements Serializable {
     private Set<Campaign> campaigns = new HashSet<>();
 
     @ElementCollection
-    private Map<Boolean, Date> activePeriods;
+    private Map<Date, Boolean> activePeriods;
 
     public void addBookToCurrent(Book book) {
         booksGot.add(book);

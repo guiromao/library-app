@@ -5,6 +5,7 @@ import co.guiromao.libraryapp.models.Member;
 import co.guiromao.libraryapp.repositories.MembersRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,7 +63,12 @@ public class MembersServiceImpl implements MembersService {
         }
 
         Member member = maybeMember.get();
+        persistNewActivity(member);
+    }
+
+    private void persistNewActivity(Member member) {
         member.toggleActive();
+        member.getActivePeriods().put(new Date(), member.isActive());
         saveMember(member);
     }
 

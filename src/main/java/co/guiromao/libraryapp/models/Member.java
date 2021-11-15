@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "members")
@@ -33,12 +32,19 @@ public class Member implements Serializable {
     @ManyToMany(mappedBy = "members")
     private Set<Campaign> campaigns = new HashSet<>();
 
+    @ElementCollection
+    private Map<Boolean, Date> activePeriods;
+
     public void addBookToCurrent(Book book) {
         booksGot.add(book);
     }
 
     public void removeBookFromCurrent(Book book) {
         booksGot.remove(book);
+    }
+
+    public void toggleActive() {
+        isActive = !isActive;
     }
 
 }

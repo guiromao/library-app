@@ -15,4 +15,6 @@ public interface MembersService {
 
     void deleteMember(Long memberId);
 
+    void toggleActivity(Long memberId);
+
 }

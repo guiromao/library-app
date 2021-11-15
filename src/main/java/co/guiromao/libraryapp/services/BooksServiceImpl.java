@@ -73,7 +73,7 @@ public class BooksServiceImpl implements BooksService {
         Book book = maybeBook.get();
         Member member = maybeMember.get();
 
-        if (book.isLent() || book.getCurrentMember() != null) {
+        if (book.isLent() || book.getCurrentMember() != null || !member.isActive()) {
             return false;
         }
 

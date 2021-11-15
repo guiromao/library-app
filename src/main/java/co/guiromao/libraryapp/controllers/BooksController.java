@@ -47,4 +47,13 @@ public class BooksController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
+    @PostMapping("/{isbn}")
+    public ResponseEntity lendBook(@PathVariable UUID isbn, @RequestParam Long memberId) {
+        ResponseEntity response = (booksService.lendBookToMember(isbn, memberId)) ?
+                new ResponseEntity(HttpStatus.OK) :
+                new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+        return response;
+    }
+
 }

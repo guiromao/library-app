@@ -49,4 +49,21 @@ public class MembersServiceImpl implements MembersService {
         membersRepository.deleteById(memberId);
     }
 
+    @Override
+    public void toggleActivity(Long memberId) {
+        if (memberId < 1) {
+            throw new IllegalArgumentException("MemberId must be a positive integer number.");
+        }
+
+        Optional<Member> maybeMember = findById(memberId);
+
+        if (maybeMember.isEmpty()) {
+            throw new InvalidMemberException("Member not found");
+        }
+
+        Member member = maybeMember.get();
+        member.toggleActive();
+        saveMember(member);
+    }
+
 }

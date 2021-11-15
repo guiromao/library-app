@@ -1,5 +1,6 @@
 package co.guiromao.libraryapp.controllers;
 
+import co.guiromao.libraryapp.converters.MemberConverter;
 import co.guiromao.libraryapp.dto.MemberDto;
 import co.guiromao.libraryapp.models.Member;
 import co.guiromao.libraryapp.services.MembersService;
@@ -7,8 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/library/members")
@@ -38,7 +38,22 @@ public class MembersController {
 
     @PostMapping({"", "/"})
     public ResponseEntity<MemberDto> createMember(@RequestBody MemberDto memberDto) {
-        return null;
+        Member member = MemberConverter.dtoToMember(memberDto);
+
+        Map<Boolean, Date> activePeriods = new HashMap<>();
+        activePeriods.put(true, new Date());
+        member.setActivePeriods(activePeriods);
+
+        MemberDto respDto = MemberConverter.memberToDto(membersService.saveMember(member));
+        
+        return new ResponseEntity<>(respDto, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{memberId}/active")
+    public ResponseEntity switchActivity(@PathVariable Long memberId) {
+        membersService.toggleActivity(memberId);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

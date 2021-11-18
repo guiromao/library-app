@@ -1,5 +1,6 @@
 package co.guiromao.libraryapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "members")
+//@Embeddable
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,10 +31,12 @@ public class Member implements Serializable {
     @OneToMany(fetch = FetchType.EAGER)
     private Set<Book> booksGot = new HashSet<>();
 
-    @ManyToMany(mappedBy = "members")
+    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
     private Set<Campaign> campaigns = new HashSet<>();
 
     @ElementCollection
+    //@CollectionTable(name = "active_periods")
+    @JsonIgnore
     private Map<Date, Boolean> activePeriods;
 
     public void addBookToCurrent(Book book) {

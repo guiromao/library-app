@@ -1,22 +1,22 @@
 package co.guiromao.libraryapp.dto;
 
+import co.guiromao.libraryapp.models.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class MemberDto {
+@NoArgsConstructor
+public class CampaignDto {
 
     private Long id;
     private String name;
-    private boolean isActive;
-    private Set<BookDto> booksGot;
-    private Map<Date, Boolean> activePeriods;
-
+    private Date startDate;
+    private Date endDate;
+    private Set<Member> members;
+    
 }

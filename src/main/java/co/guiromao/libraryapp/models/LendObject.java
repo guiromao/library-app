@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -15,10 +16,10 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LendObject {
+public class LendObject implements Serializable {
 
-    private Member member;
-    private Date initialDate;
-    private Date finalDate;
+    private Long memberId;
+    private Date lendDate;
+    private Date returnDate;
 
 }

@@ -1,5 +1,6 @@
 package co.guiromao.libraryapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,12 +36,16 @@ public class Book implements Serializable {
     @Column(name = "is_lent")
     private boolean isLent;
 
-    //Current member that has this book
+    /*//Current member that has this book
     @Column(name = "current_member")
-    private Member currentMember;
+    private Member currentMember;*/
+
+    @Column(name = "member_lent")
+    private Long memberLentTo;
 
     //Will save to whom and when this book was lent
     @ElementCollection(targetClass = LendObject.class)
+    @JsonIgnore
     private List<LendObject> lentList;
 
 }

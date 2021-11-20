@@ -16,8 +16,8 @@ public class BookDto {
     private UUID isbn;
     private String title;
     private String authors;
-    private Member currentMember;
     private boolean isLent;
+    private Long memberLentTo;
     private List<LendObjectDto> lendObjects;
 
 }

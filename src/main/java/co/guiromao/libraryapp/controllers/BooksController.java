@@ -3,7 +3,9 @@ package co.guiromao.libraryapp.controllers;
 import static co.guiromao.libraryapp.converters.BookConverter.dtoToBook;
 import static co.guiromao.libraryapp.converters.BookConverter.bookToDto;
 import co.guiromao.libraryapp.dto.BookDto;
+import co.guiromao.libraryapp.dto.LendObjectDto;
 import co.guiromao.libraryapp.models.Book;
+import co.guiromao.libraryapp.models.LendObject;
 import co.guiromao.libraryapp.services.BooksService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,13 +49,27 @@ public class BooksController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PostMapping("/{isbn}")
+    @PostMapping("/{isbn}/lend")
     public ResponseEntity lendBook(@PathVariable String isbn, @RequestParam Long memberId) {
         ResponseEntity response = (booksService.lendBookToMember(UUID.fromString(isbn), memberId)) ?
                 new ResponseEntity(HttpStatus.OK) :
                 new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         return response;
+    }
+
+    @PostMapping("/{isbn}/return")
+    public ResponseEntity returnBook(@PathVariable String isbn, @RequestParam Long memberId) {
+        ResponseEntity response = (booksService.returnBook(UUID.fromString(isbn), memberId)) ?
+                new ResponseEntity(HttpStatus.OK) :
+                new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+        return response;
+    }
+
+    @GetMapping("/{isbn}/listlends")
+    public ResponseEntity<List<LendObjectDto>> getLends(@PathVariable String isbn) {
+        return new ResponseEntity<>(booksService.getLends(UUID.fromString(isbn)), HttpStatus.OK);
     }
 
 }

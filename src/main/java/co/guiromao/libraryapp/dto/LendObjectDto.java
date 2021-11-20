@@ -5,13 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LendObjectDto {
+public class LendObjectDto implements Serializable {
 
-    private Member member;
-    private String initialDate;
-    private String endDate;
+    private Long memberId;
+    private Date lendDate;
+    private Date returnDate;
 
 }

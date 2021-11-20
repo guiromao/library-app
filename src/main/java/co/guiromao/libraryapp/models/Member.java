@@ -34,8 +34,10 @@ public class Member implements Serializable {
     @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
     private Set<Campaign> campaigns = new HashSet<>();
 
-    @ElementCollection
-    //@CollectionTable(name = "active_periods")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @MapKeyColumn(name = "date")
+    @Column(name = "active_periods")
+    @CollectionTable(name = "activeness", joinColumns = @JoinColumn(name = "member_id"))
     @JsonIgnore
     private Map<Date, Boolean> activePeriods;
 

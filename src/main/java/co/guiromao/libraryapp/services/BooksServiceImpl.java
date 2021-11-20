@@ -1,5 +1,7 @@
 package co.guiromao.libraryapp.services;
 
+import co.guiromao.libraryapp.converters.LendObjectConverter;
+import co.guiromao.libraryapp.dto.LendObjectDto;
 import co.guiromao.libraryapp.exceptions.InvalidBookException;
 import co.guiromao.libraryapp.models.Book;
 import co.guiromao.libraryapp.models.LendObject;
@@ -9,10 +11,7 @@ import co.guiromao.libraryapp.repositories.MembersRepository;
 import co.guiromao.libraryapp.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class BooksServiceImpl implements BooksService {
@@ -73,7 +72,7 @@ public class BooksServiceImpl implements BooksService {
         Book book = maybeBook.get();
         Member member = maybeMember.get();
 
-        if (book.isLent() || book.getCurrentMember() != null || !member.isActive()) {
+        if (book.isLent() || !member.isActive()) {
             return false;
         }
 
@@ -101,11 +100,11 @@ public class BooksServiceImpl implements BooksService {
         Book book = maybeBook.get();
         Member member = maybeMember.get();
 
-        if (!book.isLent() || book.getCurrentMember() == null) {
+        if (!book.isLent()) {
             return false;
         }
 
-        returnBookFromMember(book, member);
+        returnBook(book);
         saveBook(book);
         member.removeBookFromCurrent(book);
         membersRepository.saveAndFlush(member);
@@ -113,24 +112,42 @@ public class BooksServiceImpl implements BooksService {
         return true;
     }
 
+    @Override
+    public List<LendObjectDto> getLends(UUID isbn) {
+        List<LendObject> listLend = findByIsbn(isbn).get().getLentList();
+
+        return listLendToDto(listLend);
+    }
+
+    private List<LendObjectDto> listLendToDto(List<LendObject> listLend) {
+        List<LendObjectDto> listDto = new ArrayList<>();
+
+        for (LendObject obj: listLend) {
+            LendObjectDto dto = LendObjectConverter.lendObjectToDto(obj);
+            listDto.add(dto);
+        }
+
+        return listDto;
+    }
+
     private void assignBookToMember(Book book, Member member) {
         book.setLent(true);
-        book.setCurrentMember(member);
+        book.setMemberLentTo(member.getId());
         book.getLentList().add(createNewLendItem(member));
     }
 
-    private void returnBookFromMember(Book book, Member member) {
+    private void returnBook(Book book) {
         book.setLent(false);
-        book.setCurrentMember(null);
+        book.setMemberLentTo(null);
 
         int lendsSize = book.getLentList().size();
-        book.getLentList().get(lendsSize - 1).setFinalDate(new Date());
+        book.getLentList().get(lendsSize - 1).setReturnDate(new Date());
     }
 
     private LendObject createNewLendItem(Member member) {
         LendObject lendObject = new LendObject();
-        lendObject.setMember(member);
-        lendObject.setInitialDate(new Date());
+        lendObject.setMemberId(member.getId());
+        lendObject.setLendDate(new Date());
 
         return lendObject;
     }

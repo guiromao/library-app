@@ -1,7 +1,9 @@
 package co.guiromao.libraryapp.services;
 
 import co.guiromao.libraryapp.dto.BookDto;
+import co.guiromao.libraryapp.dto.LendObjectDto;
 import co.guiromao.libraryapp.models.Book;
+import co.guiromao.libraryapp.models.LendObject;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,5 +22,7 @@ public interface BooksService {
     boolean lendBookToMember(UUID isbn, Long memberId);
 
     boolean returnBook(UUID isbn, Long memberId);
+
+    List<LendObjectDto> getLends(UUID isbn);
 
 }

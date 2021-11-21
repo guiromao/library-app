@@ -44,6 +44,10 @@ public class BooksServiceImpl implements BooksService {
             throw new InvalidBookException("Book must have a title.");
         }
 
+        if (book.getIsbn() == null) {
+            book.setIsbn(UUID.randomUUID());
+        }
+
         return booksRepository.saveAndFlush(book);
     }
 

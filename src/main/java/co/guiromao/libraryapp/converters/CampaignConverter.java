@@ -23,13 +23,13 @@ public class CampaignConverter {
 
     public static List<Campaign> listDtosToListCampaigns(List<CampaignDto> listDto) {
         return listDto.stream()
-                .map(dto -> modelMapper.map(dto, Campaign.class))
+                .map(dto -> dtoToCampaign(dto))
                 .collect(Collectors.toList());
     }
 
     public static List<CampaignDto> listCampaignsToListDtos(List<Campaign> listCampaigns) {
         return listCampaigns.stream()
-                .map(campaign -> modelMapper.map(campaign, CampaignDto.class))
+                .map(campaign -> campaignToDto(campaign))
                 .collect(Collectors.toList());
     }
 

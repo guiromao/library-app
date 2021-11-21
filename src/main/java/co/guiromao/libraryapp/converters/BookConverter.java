@@ -24,7 +24,7 @@ public class BookConverter {
     public static BookDto bookToDto(Book book) {
         BookDto dto = modelMapper.map(book, BookDto.class);
 
-        List<LendObjectDto> lendDtos = new ArrayList<>();
+        /*List<LendObjectDto> lendDtos = new ArrayList<>();
 
         if (book.getLentList() != null) {
             for (LendObject obj : book.getLentList()) {
@@ -34,7 +34,7 @@ public class BookConverter {
             }
         }
 
-        dto.setLendObjects(lendDtos);
+        dto.setLendObjects(lendDtos);*/
 
         return dto;
     }

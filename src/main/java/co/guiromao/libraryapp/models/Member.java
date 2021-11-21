@@ -29,10 +29,11 @@ public class Member implements Serializable {
     private boolean isActive;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private Set<Book> booksGot = new HashSet<>();
+    private List<Book> booksGot = new ArrayList<>();
 
+    /*@JsonIgnore
     @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
-    private Set<Campaign> campaigns = new HashSet<>();
+    private Set<Campaign> campaigns = new HashSet<>();*/
 
     @ElementCollection(fetch = FetchType.EAGER)
     @MapKeyColumn(name = "date")

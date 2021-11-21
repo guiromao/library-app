@@ -37,4 +37,8 @@ public class Campaign {
             inverseJoinColumns = { @JoinColumn(name = "campaign_id") }
     )
     private Set<Member> members = new HashSet<>();
+
+    public void addMember(Member member) {
+        members.add(member);
+    }
 }

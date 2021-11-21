@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -18,6 +17,5 @@ public class BookDto {
     private String authors;
     private boolean isLent;
     private Long memberLentTo;
-    private List<LendObjectDto> lendObjects;
 
 }

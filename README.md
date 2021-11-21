@@ -1,5 +1,5 @@
 # Library Application 
-An application to manage a library's books - when they're lent, and when they're returned - and also some campaigns for promoting reading.
+An application to manage a library's books - when they're lent, and when they're returned - its members, and also campaigns for promoting reading.
 
 ## API
 
@@ -21,7 +21,7 @@ GET /api/v1/library/members/{memberId}: retrieves Member of ID memberId
 
 POST /api/v1/library/members: saves a member onto the database, receiving a Member DTO in the RequestBody
 
-PUT /api/v1/library/members/{memberId}: switches state of activity of Member with ID memberId
+PUT /api/v1/library/members/{memberId}/active: switches state of activity of Member with ID memberId
 
 GET /api/v1/library/campaigns: retrieves all existing Campaigns
 

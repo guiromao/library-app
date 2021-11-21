@@ -55,12 +55,12 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public void addMemberToCampaign(MemberDto memberDto, Long campaignId) {
-        if (memberDto.getId() < 1 || campaignId < 1) {
+    public void addMemberToCampaign(Long memberId, Long campaignId) {
+        if (memberId < 1 || campaignId < 1) {
             throw new IllegalArgumentException("Invalid information provided.");
         }
 
-        Member member = membersService.findById(memberDto.getId()).orElse(null);
+        Member member = membersService.findById(memberId).orElse(null);
 
         if (member != null) {
             Campaign campaign = campaignRepository.findById(campaignId).orElse(null);

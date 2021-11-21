@@ -38,8 +38,8 @@ public class CampaignsController {
     }
 
     @PutMapping("/{campaignId}")
-    public ResponseEntity addMemberToCampaign(@PathVariable Long campaignId, @RequestBody MemberDto dto) {
-        campaignService.addMemberToCampaign(dto, campaignId);
+    public ResponseEntity addMemberToCampaign(@PathVariable Long campaignId, @RequestParam Long memberId) {
+        campaignService.addMemberToCampaign(memberId, campaignId);
 
         return new ResponseEntity(HttpStatus.OK);
     }

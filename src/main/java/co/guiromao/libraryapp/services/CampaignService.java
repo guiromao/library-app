@@ -14,6 +14,6 @@ public interface CampaignService {
 
     CampaignDto saveCampaign(CampaignDto dto);
 
-    void addMemberToCampaign(MemberDto memberDto, Long campaignId);
+    void addMemberToCampaign(Long memberId, Long campaignId);
 
 }
